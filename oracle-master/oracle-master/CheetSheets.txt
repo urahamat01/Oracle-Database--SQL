@@ -1,0 +1,46 @@
+Open SQL Comand Line Tool 
+1============Login as System================
+connect
+username: system
+password: sys
+2==================================
+show user
+3==================================
+clear screen
+4===============Create New User Like idb===================
+ create user idb identified by idb
+5========== Give Grant Permission========================
+ grant dba to idb
+6=============Find out DBA User List OR Database Name=======================
+ select USERNAME, DEFAULT_TABLESPACE from DBA_USERS;
+7====================Create Table =======================
+create table test(
+         id      NUMBER(5) PRIMARY KEY,
+         ename      VARCHAR2(15) NOT NULL,
+         salary       NUMBER(7,2));
+8============Show Table List==========
+select table_name from user_tables;
+select table_name from all_tables;
+9===========Show Details Of A Table===============
+ describe test;
+10=========Query Table===============
+select * from test;
+11=============Insert Data Into Table==========  
+insert into test(id, ename, salary) values(110,'Israt Akter',42000);
+12==========show autocommit=======
+show autocommit
+13============Make autocommit on==============
+set  autocommit on
+14============Substitution Variables==============	
+select * from &abc where id=&idddddd;
+Enter value for abc: test
+Enter value for idddddd: 105
+old   1: select * from &abc where id=&idddddd
+new   1: select * from test where id=105
+
+        ID ENAME               SALARY
+---------- --------------- ----------
+       105 Moly Akter           40000
+================Unlock a user===========
+CONNECT SYS as SYSDBA
+alter user hr identified by hr ACCOUNT UNLOCK;
