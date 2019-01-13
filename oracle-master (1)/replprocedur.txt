@@ -1,0 +1,88 @@
+	create table employee (id number(5) primary key, name varchar2(55) not null, salary number(7,2) check(salary>20000), dept_id number(5) not null, foreign key(dept_id) references department(id));
+
+	
+	
+====	==============================================================================
+
+		create or replace trigger emp_insert after insert on employee
+		for each row
+		declare
+		begin
+		insert into emp_backup values(:new.id, :new.name, :new.salary, :new.dept_id);
+		dbms_output.put_line('Data inserted on emp_backup');
+		end;
+		/
+
+
+	create or replace trigger emp_update after update on employee
+	for each row
+	declare
+	begin
+	update emp_backup
+	set id = :new.id, name=:new.name, salary = :new.salary, dept_id =:new.dept_id
+	where id=:old.id or name=:old.name or salary = :old.salary;
+	dbms_output.put_line('Data updated on emp_backup');
+	end;
+	/
+
+
+	create or replace trigger emp_delete after delete on employee
+	for each row
+	declare
+	begin
+	delete from emp_backup
+	where id = :new.id or name=:new.name or salary = :new.salary;
+	dbms_output.put_line('Data deleted from emp_backup');
+	end;
+	/
+
+	=====================================================================
+	
+	
+	
+create or replace procedure empInsert(
+	p_id in employee.id%type,
+	p_name in employee.name%type,
+	p_salary in employee.salary%type,
+	p_dept_id in employee.dept_id%type)
+	is
+	begin
+	insert into employee(id, name, salary, dept_id)
+	values (p_id, p_name, p_salary, p_dept_id);
+	commit;
+	end;
+	/
+
+
+create or replace procedure empUpdate(
+	p_id in employee.id%type,
+	p_name in employee.name%type,
+	p_salary in employee.salary%type,
+	p_dept_id in employee.dept_id%type)
+	is
+	begin
+	update employee
+	set id=p_id, name=p_name, salary=p_salary, dept_id=p_dept_id
+	where id=p_id or name=p_name or salary=p_salary;
+	commit;
+	end;
+	/
+
+
+create or replace procedure empDelete(
+	p_id in employee.id%type,
+	p_name in employee.name%type,
+	p_salary in employee.salary%type,
+	p_dept_id in employee.dept_id%type)
+	is
+	begin
+	delete from employee
+	where id=p_id or name=p_name or salary=p_salary;
+	commit;
+	end;
+/
+
+
+create or replace view emp_view (emp_id, emp_name, Anuual_salary, dept_name) 
+as select e.id, e.name, avg(e.salary), d.dep_name from employee
+ e join department d on (e.dept_id=d.id) group by e.id, e.name, d.dep_name;

@@ -1,0 +1,38 @@
+CREATE or REPLACE TRIGGER idb_after_update AFTER UPDATE ON idb
+FOR EACH ROW
+DECLARE
+BEGIN
+insert into idb_backup values (:new.id, :new.name, :new.mobile, :new.country);
+DBMS_OUTPUT.PUT_LINE('Record successfully inserted into idb_backup table');
+END;
+==================
+insert into usa values(2,'Mr','Shohan');
+===============================
+select * from usa;
+================
+CREATE or REPLACE TRIGGER idb_after_update
+AFTER UPDATE ON idb
+FOR EACH ROW
+DECLARE
+BEGIN
+update idb_backup
+set name = :new.name,
+mobile = :new.mobile, 
+country = :new.country
+where id = :old.id;
+DBMS_OUTPUT.PUT_LINE('Record successfully updated into idb and idb_backup table');
+END;
+========================
+update usa set usaid=100
+where usaid=1;
+========================
+CREATE or REPLACE TRIGGER usa_after_delete
+AFTER DELETE ON usa
+FOR EACH ROW
+DECLARE
+BEGIN
+Delete usa_backup
+where usaid = :old.usaid;
+DBMS_OUTPUT.PUT_LINE('Record successfully Deleted from usa table');
+END;
+========================================

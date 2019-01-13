@@ -1,0 +1,93 @@
+create table another(id number, name varchar(10), age int);
+
+ CREATE TABLE EMPLLOYEES(ID INT, NAME CHAR(10), GENDER CHAR(10), SALARY INT, AGE INT );
+INSERT INTO EMPLLOYEES VALUES(102, 'RONY', 'MALE', '120000', 28);
+INSERT INTO EMPLLOYEES VALUES(103, 'RONY', 'MALE', '1200040', 28);
+INSERT INTO EMPLLOYEES VALUES(104, 'RONY', 'MALE', '1200700', 28);
+INSERT INTO EMPLLOYEES VALUES(105, 'RONY', 'MALE', '1200006', 28);
+
+SELECT * FROM EMPLLOYEES;
+DESC EMPLLOYEES;
+
+INSERT INTO EMPLLOYEES(ID,NAME,SALARY) VALUES(107,'ID',120);
+INSERT INTO EMPLLOYEES(ID,NAME,SALARY) VALUES(106,'ID',120);
+INSERT INTO EMPLLOYEES(ID,NAME,SALARY) VALUES(109,'ID
+
+select * from emplloyees;
+
+update emplloyees 
+set gender ='male'
+where id=109;
+
+update emplloyees
+set age='55'
+where id=106;
+
+delete from emplloyees
+where id=101;
+
+delete from emplloyees where id=106;
+
+select * from emplloyees;
+desc emplloyees;
+
+select distinct gender from emplloyees;
+select age from emplloyees;
+select id, name, salary from emplloyees;
+
+
+select id, name from emplloyees 
+where salary between 12000 and 3000000;
+
+select * from emplloyees
+order by name desc;
+
+
+create table siam(id varchar(10), balance int, cqpa float, dept varchar(10));
+
+desc siam;
+
+select * from siam;
+
+insert into siam values(101,'1200','hail', englic);
+select * from siam;
+
+
+
+INSERT INTO siam VALUES(103, 'RONY','a', english);
+
+select * from siam 
+where name like '%n';
+
+drop table rony;
+
+
+create table sane(id number(10), name varchar2(10), balance int, cgpa int, dept varchar2(10));
+create table siam(id varchar(10), balance int, cqpa float, dept varchar(10));
+
+
+alter table sane add salary int;
+
+select * from sane;
+
+insert into sane(id, name, balance, cgpa, dept) values(105, 'r onb', '10000', '5', csc);
+
+INSERT INTO sane(ID,NAME,balance,SALARY) VALUES(107,'ID', '12000',120);
+INSERT INTO sane(ID,NAME,balance,SALARY) VALUES(108,'ID','1200',12000);
+INSERT INTO sane(ID,NAME,balance,SALARY) VALUES(106,'ID','1200',12000);
+INSERT INTO sane(ID,NAME,balance,SALARY) VALUES(100,'ID','1200',12000);
+INSERT INTO sane(ID,NAME,balance,SALARY) VALUES(102,'ID','1200',12000);
+INSERT INTO sane(ID,NAME,SALARY) VALUES(108,'ID',120);
+INSERT INTO sane(ID,NAME,SALARY) VALUES(109,'ID',120);
+INSERT INTO sane(ID,NAME,SALARY) VALUES(107,'ID',120);
+
+alter table sane rename column salary to sane_salary;
+
+alter table sane modify sane_salary varchar(10);
+
+alter table sane drop column sane_salary;
+
+
+select * from sane;
+
+select name from sane where balance>=3000;

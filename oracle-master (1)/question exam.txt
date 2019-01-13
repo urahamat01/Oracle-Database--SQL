@@ -1,0 +1,10 @@
+1. create user newyear and give permission for create, view, synonym
+2. create table category id, cname, 
+3. add constraint pk for id and unique for cname
+4. create another table as employee, id, name, salary, cat_id, ountry
+	id=pk, salary>25000, cat_id fk and not null, country default bd
+5. create sequence for category like 5,10,15
+6. create sequence for employee like, 101,102,103
+7. create a trigger for employee table as insert,update,delete
+8. create a procedure for inserting data
+9. create a view for id, name, salary, country, cname

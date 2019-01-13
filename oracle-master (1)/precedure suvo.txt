@@ -1,0 +1,111 @@
+SQL> Create Table Customer(
+ id number(5) primary key,
+ name varchar2(55) not null,
+ mobile varchar2(55),
+ country varchar2(55));
+
+Table created.
+
+SQL> CREATE OR REPLACE PROCEDURE insertCustomer(
+ p_id IN customer.id%TYPE,
+ p_name IN customer.name%TYPE,
+ p_mobile IN customer.mobile%TYPE,
+ p_country IN customer.country%TYPE)
+ IS
+ BEGIN
+ INSERT into customer (id,name,mobile,country)
+ VALUES (p_id, p_name,p_mobile,p_country);
+ COMMIT;
+ END;
+ /
+
+Procedure created.
+
+SQL> BEGIN
+  insertCustomer(101,'Shuvo',01711000001,'Bangladesh');
+  END;
+  /
+
+PL/SQL procedure successfully completed.
+
+SQL> BEGIN
+  insertCustomer(102,'Hasan',01711000002,'Japan');
+  END;
+  /
+
+PL/SQL procedure successfully completed.
+
+SQL> BEGIN
+  insertCustomer(103,'Rafin',01711000003,'India');
+  END;
+  /
+
+PL/SQL procedure successfully completed.
+
+SQL> CREATE OR REPLACE PROCEDURE updateCustomer(
+  p_id IN customer.id%TYPE,
+  p_name IN customer.name%TYPE,
+  p_mobile IN customer.mobile%TYPE,
+  p_country IN customer.country%TYPE)
+  IS
+  BEGIN
+  UPDATE customer SET name = p_name, mobile = P_mobile, country = p_country where id = p_id or name = p_name;
+  COMMIT;
+ END;
+ /
+
+Procedure created.
+
+SQL> BEGIN
+  updateCustomer(102,'Masud',01711000002,'France');
+  END;
+  /
+
+PL/SQL procedure successfully completed.
+
+SQL> select * from customer;
+
+        ID NAME
+---------- -------------------------------------------------------
+MOBILE
+-------------------------------------------------------
+COUNTRY
+-------------------------------------------------------
+       101 Shuvo
+1711000001
+Bangladesh
+
+       102 Masud
+1711000002
+France
+
+        ID NAME
+---------- -------------------------------------------------------
+MOBILE
+-------------------------------------------------------
+COUNTRY
+-------------------------------------------------------
+
+       103 Rafin
+1711000003
+India
+
+
+SQL> CREATE OR REPLACE PROCEDURE deleteCustomer(
+  p_id IN customer.id%TYPE,
+  p_name IN customer.name%TYPE)
+  IS
+  BEGIN
+  DELETE from customer where id = p_id or name = p_name;
+  COMMIT;
+  END;
+  /
+
+Procedure created.
+
+SQL> BEGIN
+  deleteCustomer(103,'Rafin');
+  END;
+  /
+
+PL/SQL procedure successfully completed.

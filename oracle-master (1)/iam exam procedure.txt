@@ -1,0 +1,63 @@
+
+
+1/   create table save(id number(5), name varchar(10), mobile varchar(10), gender varchar(10), primary key(id));
+
+
+
+
+
+
+2/  create or replace procedure saveproc(id1 in number, name1 in varchar, mobile1 in varchar, gender1 in varchar)
+
+is 
+begin
+insert into save(id, name, mobile, gender) values(id1,name1,mobile1,gender1);
+end;
+
+
+3/ 
+
+begin 
+savepro(101, 'Repon', '5678','male');
+end;
+
+
+
+4/ select * from save;
+
+
+
+5/ create or replace procedure deleteproc(id1 in int)
+
+is 
+begin
+delete from save where id=id1;
+end; 
+
+
+
+6/ begin 
+
+deleteproc(101);
+end;
+
+7/ select * from save;
+
+
+8/  create or replace procedure updateproc(id1 in int, name1 in varchar, mobile1 in varchar, gender1 in varchar)
+
+is
+begin
+update save set name=name1, mobile=mobile1, gender=gender1 where id=id1;
+end;
+
+9/  begin updateproc(101,'uanaj','6878', 'male');
+end;
+
+10/  begin updateproc(105,'uanaj','6878', 'male');
+end;
+
+
+11/   create or replace view emp_view (emp_id, emp_name, Anuual_salary, dept_name) 
+    as select e.id, e.name, avg(e.salary), d.dep_name from employee e join department d on 
+(e.dept_id=d.id) group by e.id, e.name, d.dep_name;

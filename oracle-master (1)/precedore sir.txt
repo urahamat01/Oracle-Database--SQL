@@ -1,0 +1,64 @@
+CREATE OR REPLACE PROCEDURE insertCustomer(
+p_id IN customer.id%TYPE,
+p_name IN customer.name%TYPE,
+p_mobile IN customer.mobile%TYPE,
+p_country IN customer.country%TYPE)
+IS
+BEGIN
+INSERT into customer (id,name,mobile,country)
+VALUES (p_id, p_name,p_mobile,p_country);
+COMMIT;
+END;
+/
+
+
+### Calling Insert Procedure........................................
+
+BEGIN
+insertCustomer(101,'Shuvo',01711000001,'Bangladesh');
+END;
+/
+
+
+### Update Procedure.........................................
+
+CREATE OR REPLACE PROCEDURE updateCustomer(
+p_id IN customer.id%TYPE,
+p_name IN customer.name%TYPE,
+p_mobile IN customer.mobile%TYPE,
+p_country IN customer.country%TYPE)
+IS
+BEGIN
+UPDATE customer SET name = p_name, mobile = P_mobile, country = p_country where id = p_id or name = p_name;
+COMMIT;
+END;
+/
+
+
+### Calling Update Procedure........................................
+
+BEGIN
+updateCustomer(102,'Masud',01711000002,'France');
+END;
+/
+
+
+### Delete Procedure.........................................
+
+CREATE OR REPLACE PROCEDURE deleteCustomer(
+p_id IN customer.id%TYPE,
+p_name IN customer.name%TYPE)
+IS
+BEGIN
+DELETE from customer where id = p_id or name = p_name;
+COMMIT;
+END;
+/
+
+
+### Calling Delete Procedure........................................
+
+BEGIN
+deleteCustomer(103,'Rafin');
+END;
+/

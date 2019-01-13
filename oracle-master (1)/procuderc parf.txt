@@ -1,0 +1,186 @@
+			
+
+
+
+
+create table savetable(id int, name varchar(10), mobile varchar(10), gender varchar(10), primary key(id));
+
+
+
+create or replace procedure savepro(id1 in int, name1 in varchar, mobile1 in varchar, gender1 in varchar)
+
+is 
+
+begin
+
+insert into savetable(id, name, mobile, gender) values(id1,name1,mobile1,gender1);
+
+end;
+
+
+-----------------------------------AIJSIIJFD------------------------------------------------------
+
+
+begin 
+savepro(101, 'Repon', '5678','male');
+end;
+
+----------------------------ISIAJIJ=--------------------
+
+begin 
+savepro(102, 'Rony', '7578','male');
+end;
+----------------------HISDJIO------------------------
+
+begin 
+savepro('103', 'Repon', '5678','male');
+end;
+
+------------------------------------AJHSDJ------------------------------------
+
+select *  from savetable;
+
+
+
+
+---------------------DELETE PROCUDURE-------------------------
+
+
+create or replace procedure deleteproc(id1 in int)
+is
+begin
+delete from savetable where id=id1;
+end;
+
+-------------------SDJJKJ---------------------
+begin 
+deleteproc(101);
+end;
+
+
+------------------------------KKDJJ---------------------
+
+select * from savetable;
+
+
+---------------------------ifjdlsa----------------------
+
+
+execute deleteproc(101);
+
+
+===================updateproc ==================================
+
+create or replace procedure updateproc(id1 in int, name1 in varchar, mobile1 in varchar, gender1 in varchar)
+is
+begin
+update savetable set name=name1, mobile=mobile1, gender=gender1 where id=id1;
+end;
+
+
+============================call procedure================================
+
+begin 
+updateproc(101,'uanaj','6878', 'male');
+end;
+
+===========================================================================
+
+
+
+create table savetable(id int, name varchar(10), mobile varchar(10), gender varchar(10), primary key(id));
+
+select *from savetable;
+
+create table t1(id int, name varchar(10));
+
+
+
+create table t2(id int, name varchar(10));
+
+
+
+
+create table t3(id int, name varchar(10));
+
+
+-------------------------------------------------------------------------
+
+
+
+create or replace procedure multiproc(id1 in int, name1 in varchar, mobile1 in varchar, gender1 in varchar)
+as 
+begin
+insert into a(id, name) values(id1,name1);
+insert into b(id, mobile) values(id1,mobile1);
+insert into c(id, gender) values(id1,gender1);
+end;
+
+
+=======================================================================
+
+
+begin 
+multiproc(203, 'mumay', '898909', 'female');
+end;
+
+select * from t1;
+select * from t2;
+
+select * from t3;
+
+
+
+
+
+begin 
+multiproc(202, 'mun', '898909', 'male');
+end;
+
+select * from t1;
+select * from t2;
+
+select * from t3;
+
+
+
+----------------------------------------------------
+
+
+create table stydent2(reqno number, name varchar(20), mark1 number, mark2 number, total number);
+
+
+
+create table stydent2(reqno number, name varchar(20), mark1 number, mark2 number, total number);
+
+
+create or replace procdure proto(reg in number, 
+a in number,
+b in number)
+is
+t number;
+begin 
+t:=a+b;
+update student2 set total = t where reqno =reg;
+end;
+
+declare
+cursor c1 is select * from student2;
+temp student2 %rowtype;
+begin open ol;
+loop fetch c1 into temp;
+exit when c1%potfound;
+proto(temp.reqno,temp.mark1,temp.mark2);
+and loop;
+end;
+
+
+
+
+
+
+
+
+
+
+

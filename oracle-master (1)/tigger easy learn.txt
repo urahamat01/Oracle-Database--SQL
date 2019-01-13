@@ -1,0 +1,297 @@
+create table another(id number, name varchar(10), age int);
+
+select * from another;
+
+insert into another values(101,'munna', 13);
+
+create table another1(id1 number, name1 varchar2(10), age1 int);
+
+
+create or replace trigger anothertrigger
+after insert on another
+for each row 
+begin 
+insert into another1(id1, name1, age1) values(:new.id, :new.name, :new.age);
+end;
+
+
+
+select * from another1;
+
+insert into another values(102,'munna', 13);
+insert into another values(103,'munna', 13);
+
+
+
+
+connect or replace trigger anothertrigge
+before update on another
+for each row
+begin
+insert into another1(id1, name1) values(:new.id, :new.name);
+end;
+
+
+
+insert into another values(107, 'rony', 27);
+
+
+
+
+create or replace trigger anothertrigger
+before delete on another
+for each row
+begin
+insert into another1(id1, name1) values(:old.id, :old.name);
+end;
+
+
+
+delete from another
+where id=103;
+
+
+delete from another
+where id=107;
+
+delete from another
+where id=102;
+insert into another values(109,'munna', 13);
+
+
+
+update another
+set name='rony1'
+where id=107;
+
+
+
+insert into another values(107, 'rony', 27);
+
+===================================================================
+
+
+create table phone1 (name varchar(10), phone int, price int);
+
+
+create table phone2 (name varchar(10), phone int);
+
+
+select * from phone1;
+
+select * from phone2;
+
+
+create or replace trigger phonetrigger
+after insert on phone1
+for each row
+when(new.price>=3000)
+begin
+insert into phone2(name1, price1) values(:new.name, :new.price);
+end;
+
+
+
+
+insert into phone1 values('rony', 762, 678);
+insert into phone1 values('rony4', 762, 678);
+
+
+============================================================
+create table maintable(id int, name char(10), balance int);
+
+
+create table consume(name char(10), balance int);
+
+create table deleteconsume(name char(10));
+
+
+create or replace trigger  banktrigger
+after insert on maintable
+for each row
+begin
+insert into consume(name, balance) values(:new.name, :new.balance);
+end;
+
+
+
+create or replace trigger banktrigger
+after delete on maintable
+for each row
+begin
+insert into deleteconsume(name)values(:old.name);
+end;
+
+
+
+
+insert into maintable values(101, 'munu', 1201);
+insert into consume values(102, 'munu', 1205);
+
+select * from maintable;
+select * from consume;
+
+
+delete from maintable where id=101;
+
+select * from deleteconsume;
+
+
+
+insert into phone1 values('rony3', 762, 678);
+
+============================================================================================================
+
+
+
+
+create table people(name char(10), n_id varchar2(13), birth varchar2(15), div varchar2(10), dist varchar2(10)); 
+
+
+
+create table birth(name char(10), n_id varchar2(13), birth varchar2(15), div varchar2(10), dist varchar2(10));
+create table death(name char(10), n_id varchar2(13), birth varchar2(15), div varchar2(10), dist varchar2(10));
+
+
+
+
+select * from people;
+
+
+select * from birth;
+
+select * from death;
+
+
+
+
+
+create or replace trigger birthAndInsert
+after insert on birth
+for each row
+begin
+insert into people(name, n_id, birth, div, dist) values(:new.name, :new.n_id, :new.birth, :new.div, :new.dist);
+end;
+
+
+
+create or replace trigger deathAndLet
+after insert on death
+for each row 
+begin
+delete from birth where birth.name=:old.name;
+delete from people where people.name=:old.name;
+end;
+
+
+insert into birth values('repon', '768667', '1-1-2005' , 'barishal','bbaore');
+
+insert into birth values('rony0', '768667', '1-1-2005' , 'barishal','bbaore');
+insert into death values('rony', '768667', '1-1-2005' , 'barishal','bbaore');
+
+
+delete from death where name='rony';
+delete from birth where name='rony0';
+
+
+
+
+======================================================================
+
+
+
+
+create table play1(match char(10), win int);
+
+create table play2(match char(10), lost int);
+
+create table playcount(match char(10), lost int);
+
+create table totalplaycount(tid int, tmach int, twin int, tlost int);
+
+
+select * from play1;
+
+select * from play2;
+
+select * from playcount;
+
+select * from totalplaycount;
+
+insert into totalplaycount values(1,0,0,0);
+
+
+create or replace trigger playtrigger
+after insert on play1
+for each row
+begin
+insert into playcount(match,win,lost) values(:new.match, :new.win,0);
+update totalplaycount set tmatch=(select count(*) from playcount where tid=1);
+update totalplaycount set twin=(select count(*) from playcount where win=1);
+update totalplaycount set tlost=(select count(*) from playcount where lost=1);
+end; 
+
+
+create or replace trigger play2trigger
+after insert on play2
+for each row
+begin
+insert into playcount(match,win,lost) values(:new.match,0, :new.lost);
+update totalplaycount set tmatch=(select count(*) from playcount) where tid=1;
+update totalplaycount set twin=(select count(*) from playcount where win=1);
+update totalplaycount set tlost=(select count(*) from playcount where lost=1);
+end; 
+
+
+insert into play1 values('p',1);
+insert into play2 values('x',1);
+insert into play1 values('y',1);
+
+
+======================================================================================================
+
+
+create table addsername(name varchar(20), username varchar(20), operation varchar(10), op_date date);
+
+
+create table bankdeposit (id number, name varchar(20), balance number);
+
+
+
+
+create or replace trigger audituser
+before insert or delete or update on bankdeposit
+referencing new as n old as o
+for each row
+begin
+if inserting then 
+insert into addusername values(:n.name,user, 'Insert', sysdate);
+end if;
+if deleting then
+insert into addusername values(:o.name,user, 'Delete', sysdare);
+end if;
+if updating then
+insert into addusername values(:o.name,user, 'Update', sysdate);
+end if;
+end;
+
+
+
+
+
+
+
+insert into bankdeposit values(2, 'B', 1000);
+
+
+delete from bankdeposit where id=1;
+
+
+select * from bankdeposit;
+
+
+
+
+
+
+
